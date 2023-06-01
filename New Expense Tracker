@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Expense Tracker</h2>
+        <div class="form-group">
+            <label for="expense-name">Expense Name:</label>
+            <input type="text" id="expense-name" />
+        </div>
+        <div class="form-group">
+            <label for="expense-amount">Expense Amount:</label>
+            <input type="number" id="expense-amount" />
+        </div>
+        <button onclick="addExpense()">Add Expense</button>
+        <h3>Expenses</h3>
+        <ul id="expense-list"></ul>
+    </div>
+
+    <script>
+        // Check if there are any expenses in localStorage and load them
+        document.addEventListener('DOMContentLoaded', loadExpenses);
+
+        function loadExpenses() {
+            const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+            const expenseList = document.getElementById('expense-list');
+            expenseList.innerHTML = '';
+
+            expenses.forEach(function (expense) {
+                const li = document.createElement('li');
+                li.textContent = `${expense.name}: $${expense.amount}`;
+                expenseList.appendChild(li);
+            });
+        }
+
+        function addExpense() {
+            const expenseName = document.getElementById('expense-name').value;
+            const expenseAmount = document.getElementById('expense-amount').value;
+
+            if (expenseName && expenseAmount) {
+                const expense = {
+                    name: expenseName,
+                    amount: parseFloat(expenseAmount),
+                };
+
+                const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+                expenses.push(expense);
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+
+                loadExpenses();
+
+                // Clear input fields after adding expense
+                document.getElementById('expense-name').value = '';
+                document.getElementById('expense-amount').value = '';
+            }
+        }
+    </script>
+</body>
+</html>
