@@ -1,0 +1,39 @@
+class Pizza {
+  constructor(size, toppings) {
+    this.size = size;
+    this.toppings = toppings;
+  }
+
+  bake() {
+    console.log("Baking the pizza...");
+    // Simulating the baking process
+    setTimeout(() => {
+      console.log("Pizza is ready!");
+    }, 2000);
+  }
+
+  deliver() {
+    console.log("Delivering the pizza...");
+    // Simulating the delivery process
+    setTimeout(() => {
+      console.log("Pizza has been delivered!");
+    }, 3000);
+  }
+
+  eat() {
+    console.log("Eating the pizza...");
+    // Simulating the eating process
+    setTimeout(() => {
+      console.log("Pizza has been eaten!");
+    }, 4000);
+  }
+}
+
+// Creating a new pizza
+const toppings = ["cheese", "pepperoni", "mushrooms"];
+const pizza = new Pizza("large", toppings);
+
+// Making and enjoying the pizza
+pizza.bake();
+pizza.deliver();
+pizza.eat();
