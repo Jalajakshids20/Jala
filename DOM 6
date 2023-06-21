@@ -1,0 +1,9 @@
+<head>
+  <h1> Title </h1>
+</head>
+
+<body>
+  <input type="text" name="Name" />
+  <input type="button" value="Submit" style="background-color: green;" />
+  <input type="button" value="Invisible Button" style="display: none;" />
+</body>
