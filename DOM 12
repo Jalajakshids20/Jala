@@ -1,0 +1,30 @@
+function addAppointment() {
+  const appointmentInput = document.getElementById('appointmentInput');
+  const appointmentText = appointmentInput.value.trim();
+
+  if (appointmentText !== '') {
+    const userId = 'user123'; // Replace with the actual user ID or use a login/authentication system to obtain the user ID
+
+    // Make an HTTP POST request to the server
+    fetch('/api/appointments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ userId, appointmentText })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message);
+        
+        // Assuming the server returns the saved appointment data, you can add it to the list
+        addAppointmentToList(appointmentText);
+        
+        // Clear the input field
+        appointmentInput.value = '';
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+}
