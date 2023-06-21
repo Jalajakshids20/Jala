@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Appointment App</title>
+</head>
+<body>
+  <h1>Appointment App</h1>
+
+  <input type="text" id="appointmentInput" placeholder="Enter appointment" />
+  <button onclick="addAppointment()">Add</button>
+
+  <ul id="appointmentList">
+    <!-- Appointments will be dynamically added here -->
+  </ul>
+
+  <script>
+    // Get the appointment list element
+    const appointmentList = document.getElementById('appointmentList');
+
+    // Function to add a new appointment
+    function addAppointment() {
+      const appointmentInput = document.getElementById('appointmentInput');
+      const appointmentText = appointmentInput.value.trim();
+
+      if (appointmentText !== '') {
+        // Create a new list item element
+        const listItem = document.createElement('li');
+
+        // Create a span element to display the appointment text
+        const appointmentTextSpan = document.createElement('span');
+        appointmentTextSpan.textContent = appointmentText;
+
+        // Create a delete button for the appointment
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = function () {
+          listItem.remove();
+        };
+
+        // Create an edit button for the appointment
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.onclick = function () {
+          const newAppointmentText = prompt('Enter new appointment:');
+          if (newAppointmentText !== null && newAppointmentText.trim() !== '') {
+            appointmentTextSpan.textContent = newAppointmentText;
+          }
+        };
+
+        // Append the appointment text and buttons to the list item
+        listItem.appendChild(appointmentTextSpan);
+        listItem.appendChild(deleteButton);
+        listItem.appendChild(editButton);
+
+        // Append the list item to the appointment list
+        appointmentList.appendChild(listItem);
+
+        // Clear the input field
+        appointmentInput.value = '';
+      }
+    }
+  </script>
+</body>
+</html>
