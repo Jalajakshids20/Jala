@@ -1,0 +1,5 @@
+const parentElement = document.getElementById('parent');
+const item1Element = document.getElementById('item-1');
+
+const helloTextNode = document.createTextNode('Hello ');
+parentElement.insertBefore(helloTextNode, item1Element);
