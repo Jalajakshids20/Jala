@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Appointment App</title>
+</head>
+<body>
+  <h1>Appointment App</h1>
+
+  <input type="text" id="appointmentInput" placeholder="Enter appointment" />
+  <button onclick="addAppointment()">Add</button>
+
+  <ul id="appointmentList">
+    <!-- Appointments will be dynamically added here -->
+  </ul>
+
+  <script>
+    // Get the appointment list element
+    const appointmentList = document.getElementById('appointmentList');
+
+    // Function to add a new appointment
+    function addAppointment() {
+      const appointmentInput = document.getElementById('appointmentInput');
+      const appointmentText = appointmentInput.value.trim();
+
+      if (appointmentText !== '') {
+        // Create a new list item element
+        const listItem = document.createElement('li');
+
+        // Create a span element to display the appointment text
+        const appointmentTextSpan = document.createElement('span');
+        appointmentTextSpan.textContent = appointmentText;
+
+        // Create a delete button for the appointment
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.onclick = function () {
+          listItem.remove();
+          removeAppointmentFromStorage(appointmentText);
+        };
+
+        // Append the appointment text and delete button to the list item
+        listItem.appendChild(appointmentTextSpan);
+        listItem.appendChild(deleteButton);
+
+        // Append the list item to the appointment list
+        appointmentList.appendChild(listItem);
+
+        // Save the appointment to local storage
+        saveAppointmentToStorage(appointmentText);
+
+        // Clear the input field
+        appointmentInput.value = '';
+      }
+    }
+
+    // Function to retrieve the stored appointments from local storage
+    function getStoredAppointments() {
+      const storedAppointments = localStorage.getItem('appointments');
+      return storedAppointments ? JSON.parse(storedAppointments) : [];
+    }
+
+    // Function to save the appointment to local storage
+    function saveAppointmentToStorage(appointmentText) {
+      const storedAppointments = getStoredAppointments();
+
+      // Add the new appointment to the stored appointments
+      storedAppointments.push(appointmentText);
+
+      // Save the updated appointments to local storage
+      localStorage.setItem('appointments', JSON.stringify(storedAppointments));
+    }
+
+    // Function to remove an appointment from local storage
+    function removeAppointmentFromStorage(appointmentText) {
+      const storedAppointments = getStoredAppointments();
+      const updatedAppointments = storedAppointments.filter(
+        appointment => appointment !== appointmentText
+      );
+      localStorage.setItem('appointments', JSON.stringify(updatedAppointments));
+    }
+
+    // Load stored appointments on page load
+    window.addEventListener('DOMContentLoaded', function () {
+      const storedAppointments = getStoredAppointments();
+      for (const appointment of storedAppointments) {
+        addAppointmentToList(appointment);
+      }
+    });
+
+    // Function to add an appointment to the list
+    function addAppointmentToList(appointmentText) {
+      const listItem = document.createElement('li');
+      const appointmentTextSpan = document.createElement('span');
+      appointmentTextSpan.textContent = appointmentText;
+
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.onclick = function () {
+        listItem.remove();
+        removeAppointmentFromStorage(appointmentText);
+      };
+
+      listItem.appendChild(appointmentTextSpan);
+      listItem.appendChild(deleteButton);
+
+      appointmentList.appendChild(listItem);
+    }
+  </script>
+</body>
+</html>
