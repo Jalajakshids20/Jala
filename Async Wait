@@ -1,0 +1,11 @@
+async function getUserData(userId) {
+  try {
+    const response = await fetch(`/users/${userId}`);
+    const user = await response.json();
+    const postsResponse = await fetch(`/posts/${user.username}`);
+    const posts = await postsResponse.json();
+    console.log(posts);
+  } catch (error) {
+    console.error(error);
+  }
+}
