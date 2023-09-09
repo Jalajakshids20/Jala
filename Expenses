@@ -1,0 +1,31 @@
+import React from 'react';
+
+class ExpenseList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      expenses: [
+        { id: 1, description: 'Food', amount: 10 },
+        { id: 2, description: 'Petrol', amount: 100 },
+        { id: 3, description: 'Movies', amount: 200 },
+      ],
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>Expense Items</h2>
+        <ul>
+          {this.state.expenses.map((expense) => (
+            <li key={expense.id}>
+              {expense.description} Rs {expense.amount}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+export default ExpenseList;
