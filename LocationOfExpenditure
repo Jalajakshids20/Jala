@@ -1,0 +1,30 @@
+import React from 'react';
+
+class ParentComponent extends React.Component {
+  render() {
+    // Define the LocationOfExpenditure data to be passed as a prop
+    const locationOfExpenditure = "New York";
+
+    return (
+      <div>
+        {/* Pass LocationOfExpenditure as a prop to the ChildComponent */}
+        <ChildComponent location={locationOfExpenditure} />
+      </div>
+    );
+  }
+}
+
+class ChildComponent extends React.Component {
+  render() {
+    // Access the LocationOfExpenditure prop passed from the parent component via props
+    const location = this.props.location;
+
+    return (
+      <div>
+        <p>Location of Expenditure: {location}</p>
+      </div>
+    );
+  }
+}
+
+export default ParentComponent;
