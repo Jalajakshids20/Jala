@@ -1,0 +1,65 @@
+import React, { useState } from 'react';
+
+const ExpenseForm = () => {
+  // State variables to store input values
+  const [title, setTitle] = useState('');
+  const [amount, setAmount] = useState('');
+  const [date, setDate] = useState('');
+
+  // Function to handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Create an object with the form data
+    const expenseData = {
+      title,
+      amount: +amount, // Convert amount to a number
+      date: new Date(date),
+    };
+
+    // You can do something with the expenseData, like sending it to a parent component or API
+    console.log(expenseData);
+
+    // Clear the form fields
+    setTitle('');
+    setAmount('');
+    setDate('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Expense Title</label>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Expense Amount</label>
+        <input
+          type="number"
+          min="0.01"
+          step="0.01"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Expense Date</label>
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          required
+        />
+      </div>
+      <button type="submit">Add Expense</button>
+    </form>
+  );
+};
+
+export default ExpenseForm;
