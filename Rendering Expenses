@@ -1,0 +1,74 @@
+import React, { useState, useMemo } from 'react';
+import ExpenseForm from './ExpenseForm';
+import ExpenseItem from './ExpenseItem';
+
+function App() {
+  const [expenses, setExpenses] = useState([]);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
+  // Function to add an expense to the list
+  const addExpenseHandler = (expense) => {
+    setExpenses((prevExpenses) => [...prevExpenses, expense]);
+  };
+
+  // Function to handle filtering
+  const filterExpensesHandler = () => {
+    // Filter expenses based on date range
+    const filtered = expenses.filter((expense) => {
+      const expenseDate = new Date(expense.date);
+      const filterStartDate = new Date(startDate);
+      const filterEndDate = new Date(endDate);
+
+      return expenseDate >= filterStartDate && expenseDate <= filterEndDate;
+    });
+
+    // Set the filtered expenses in state
+    setFilteredExpenses(filtered);
+  };
+
+  // Use useMemo to memoize the filteredExpenses array
+  const filteredExpenses = useMemo(() => {
+    return expenses.filter((expense) => {
+      const expenseDate = new Date(expense.date);
+      const filterStartDate = new Date(startDate);
+      const filterEndDate = new Date(endDate);
+
+      return expenseDate >= filterStartDate && expenseDate <= filterEndDate;
+    });
+  }, [expenses, startDate, endDate]);
+
+  return (
+    <div>
+      <h1>Expense Tracker</h1>
+      <ExpenseForm onAddExpense={addExpenseHandler} />
+      <div>
+        {/* Date range filter inputs */}
+        <label>Start Date:</label>
+        <input
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
+        <label>End Date:</label>
+        <input
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+        <button onClick={filterExpensesHandler}>Filter</button>
+      </div>
+      {/* Map through the filteredExpenses array and display them */}
+      {filteredExpenses.map((expense, index) => (
+        <ExpenseItem
+          key={index}
+          title={expense.title}
+          amount={expense.amount}
+          date={expense.date}
+        />
+      ))}
+    </div>
+  );
+}
+
+export default App;
