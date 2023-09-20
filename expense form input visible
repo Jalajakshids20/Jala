@@ -1,0 +1,31 @@
+import React, { useState } from 'react';
+import ExpenseForm from './ExpenseForm';
+import ExpenseItem from './ExpenseItem'; // You might need to create an ExpenseItem component
+
+function App() {
+  const [expenses, setExpenses] = useState([]);
+
+  // Function to add an expense to the list
+  const addExpenseHandler = (expense) => {
+    // Use the spread operator to create a new array with the added expense
+    setExpenses((prevExpenses) => [...prevExpenses, expense]);
+  };
+
+  return (
+    <div>
+      <h1>Expense Tracker</h1>
+      <ExpenseForm onAddExpense={addExpenseHandler} />
+      {/* Map through the expenses and display them */}
+      {expenses.map((expense, index) => (
+        <ExpenseItem
+          key={index}
+          title={expense.title}
+          amount={expense.amount}
+          date={expense.date}
+        />
+      ))}
+    </div>
+  );
+}
+
+export default App;
