@@ -1,0 +1,68 @@
+Header.js
+import { Fragment } from 'react';
+import mealsImage from '../../assets/meals.jpg';
+import classes from './Header.module.css';
+const Header = (props)=> {
+    return ( 
+        <Fragment >
+        <header className = { classes.header } >
+        <h1 > ReactMeals </h1> 
+         <button > Cart </button> 
+         </header>
+        <div >
+        <img src = { mealsImage }  alt = "A table full of delicious food!"/>
+        </div> 
+        </Fragment>
+    );
+};
+export default Header;
+App.js
+import React, { Fragment } from "react";
+import Header from "./components/Layout/Header";
+function App() {
+  return (
+    <Fragment>
+      <Header />
+    </Fragment>
+  );
+}
+
+export default App;
+Header.module.css
+.header {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .header h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+  
+  .header button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .header button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Main image styles */
+  .main-image {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .main-image {
+    max-width: 100%;
+    height: auto;
+  }
