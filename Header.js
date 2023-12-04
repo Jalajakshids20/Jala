@@ -1,45 +1,30 @@
-import React from 'react'
-import { FaShoppingCart } from "react-icons/fa";
-import {
-  Badge,
-  Container,
-  Dropdown,
-  FormControl,
-  Nav,
-  Navbar,
-} from "react-bootstrap";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+import Nav from "./Nav";
+
 const Header = () => {
-
   return (
-    <Navbar bg="dark" variant="dark" style={{ height: 80 }}>
-      <Container>
-        <Navbar.Brand>
-          <a href="/">Shopping Cart</a>
-        </Navbar.Brand>
-          <Navbar.Text className="search">
-            <FormControl
-              style={{ width: 500 }}
-              type="search"
-              placeholder="Search a product..."
-              className="m-auto"
-            />
-          </Navbar.Text>
-        <Nav>
-          <Dropdown alignRight>
-            <Dropdown.Toggle variant="success">
-              <FaShoppingCart color="white" fontSize="25px" />
-              <Badge>10</Badge>
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu style={{ minWidth: 370 }}>
-                  <span style={{padding:10}} >Cart is empty</span>
-                     
-            </Dropdown.Menu>
-          </Dropdown>
-        </Nav>
-      </Container>
-    </Navbar>
+    <MainHeader>
+      <NavLink to="/">
+        <img src="./images/logo.png" alt="my logo img" />
+      </NavLink>
+      <Nav />
+    </MainHeader>
   );
 };
 
+const MainHeader = styled.header`
+  padding: 0 4.8rem;
+  height: 10rem;
+  background-color: ${({ theme }) => theme.colors.bg};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+  .logo {
+    height: 5rem;
+  }
+`;
 export default Header;
